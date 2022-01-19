@@ -2,6 +2,7 @@
 
 namespace App\HandlerNewNews\InitializeQueue;
 
+use App\Jobs\ParserNews;
 use App\Models\NewsUrls;
 
 class InitializeQueue
@@ -10,7 +11,7 @@ class InitializeQueue
     {
         foreach (NewsUrls::all() as $value)
         {
-            print_r($value->url);
+            ParserNews::dispatch($value->url);
         }
     }
 }
