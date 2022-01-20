@@ -44,12 +44,3 @@ class Parser
         return $arrNewsArticle;
     }
 }
-//$ab = $newsArticle->getDate();
-//print_r($ab->getOffset());
-//print_r("\n");
-//print_r($ab->format('Y-m-d H:i:s'));
-//print_r("\n");
-//print_r($ab->getTimestamp());
-//print_r("\n");
-//print_r(date('Y-m-d H:i:s', $ab->getTimestamp()));
-//print_r("\n");

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\HandlerNewNews\HandlerArticles\LoaderArticles\Loader;
 use App\HandlerNewNews\HandlerArticles\Reconstruction\Reconstruction;
 use App\HandlerNewNews\Parser\Parser;
 use Illuminate\Bus\Queueable;
@@ -39,7 +40,8 @@ class ParserNews implements ShouldQueue
 
         $objReconstruction = new Reconstruction($arrNewsArticle);
         $arrUpdateNewsArticle = $objReconstruction->reconstruct();
-        print_r($arrUpdateNewsArticle);
 
+        $objLoader = new Loader($arrUpdateNewsArticle);
+        $objLoader->load();
     }
 }
