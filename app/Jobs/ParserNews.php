@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\HandlerNewNews\HandlerArticles\Reconstruction\Reconstruction;
+use App\HandlerNewNews\Parser\Parser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,6 +34,12 @@ class ParserNews implements ShouldQueue
      */
     public function handle()
     {
-        print_r($this->url . "\n");
+        $objParser = new Parser($this->url);
+        $arrNewsArticle = $objParser->dissection();
+
+        $objReconstruction = new Reconstruction($arrNewsArticle);
+        $arrUpdateNewsArticle = $objReconstruction->reconstruct();
+        print_r($arrUpdateNewsArticle);
+
     }
 }
