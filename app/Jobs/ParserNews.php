@@ -41,7 +41,9 @@ class ParserNews implements ShouldQueue
         $objReconstruction = new Reconstruction($arrNewsArticle);
         $arrUpdateNewsArticle = $objReconstruction->reconstruct();
 
-        $objLoader = new Loader($arrUpdateNewsArticle);
-        $objLoader->load();
+//        $objLoader = new Loader($arrUpdateNewsArticle);
+//        $objLoader->load();
+
+        Loader::startLoad($arrUpdateNewsArticle);
     }
 }
