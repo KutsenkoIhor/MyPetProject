@@ -1,10 +1,10 @@
 <?php
 
-namespace App\HandlerNewNews\HandlerArticles\LoaderArticles;
+namespace App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles;
 
 use Illuminate\Support\Facades\DB;
 
-class Loader
+class LoaderArticles
 {
     public static function startLoad(array $arrNewsArticle): void
     {

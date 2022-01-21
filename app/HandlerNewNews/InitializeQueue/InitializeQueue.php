@@ -15,6 +15,4 @@ class InitializeQueue
         }
     }
 }
-//$val = RSS_feeds::find(1);
-////        print_r($val->feed . "\n");
-//TrackParser::dispatch($val->feed);
+

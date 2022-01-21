@@ -2,7 +2,7 @@
 
 namespace App\HandlerNewNews\HandlerArticles\Reconstruction;
 
-class Reconstruction
+class ReconstructionBeforeLoad
 {
     private array $arrNewsArticle;
 
@@ -13,7 +13,7 @@ class Reconstruction
 
     public function reconstruct(): array
     {
-        self::handlerDate();
+        $this->handlerDate();
         return $this->arrNewsArticle;
     }
 

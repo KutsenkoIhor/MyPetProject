@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\HandlerNewNews\HandlerArticles\LoaderArticles\Loader;
-use App\HandlerNewNews\HandlerArticles\Reconstruction\Reconstruction;
+use App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\LoaderArticles;
+use App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionBeforeLoad;
 use App\HandlerNewNews\Parser\Parser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -38,12 +38,9 @@ class ParserNews implements ShouldQueue
         $objParser = new Parser($this->url);
         $arrNewsArticle = $objParser->dissection();
 
-        $objReconstruction = new Reconstruction($arrNewsArticle);
+        $objReconstruction = new ReconstructionBeforeLoad($arrNewsArticle);
         $arrUpdateNewsArticle = $objReconstruction->reconstruct();
 
-//        $objLoader = new Loader($arrUpdateNewsArticle);
-//        $objLoader->load();
-
-        Loader::startLoad($arrUpdateNewsArticle);
+        LoaderArticles::startLoad($arrUpdateNewsArticle);
     }
 }
