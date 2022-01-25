@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<div style="text-align: center;">@yield('content')</div>
+<div >@yield('content')</div>
 
 </body>
 </html>

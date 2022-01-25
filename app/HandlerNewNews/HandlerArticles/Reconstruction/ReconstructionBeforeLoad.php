@@ -2,25 +2,56 @@
 
 namespace App\HandlerNewNews\HandlerArticles\Reconstruction;
 
+use PicoFeed\Parser\Feed;
+
 class ReconstructionBeforeLoad
 {
-    private array $arrNewsArticle;
+    private Feed $arrNewsArticle;
 
-    public function __construct(array $arrNewsArticle)
+    public function __construct(Feed $arrNewsArticle)
     {
         $this->arrNewsArticle = $arrNewsArticle;
     }
 
-    public function reconstruct(): array
+    public function startReconstruction(): array
     {
-        $this->handlerDate();
-        return $this->arrNewsArticle;
+        $arrAllNews = [];
+        $logo = $this->handlerLogo();
+        foreach ($this->arrNewsArticle->items as $key => $value) {
+            $arr = [];
+            $arr['title'] = $this->handlerTitle($value);
+            $arr['url'] = $this->handlerUrl($value);
+            $arr['logo'] = $logo;
+            $arr['date'] = $this->handlerDate($value);
+            $arrAllNews[$key] = $arr;
+        }
+        return $arrAllNews;
     }
 
-    private function handlerDate(): void
+    private function handlerLogo(): string
     {
-        foreach ($this->arrNewsArticle as &$value) {
-            $value['date'] = date('Y-m-d H:i:s', $value['date']);
+        return $this->arrNewsArticle->getlogo();
+    }
+
+    private function handlerTitle($value): string
+    {
+        $title = $value->getTitle();
+        return htmlspecialchars_decode($title);
+    }
+
+    private function handlerUrl($value): string
+    {
+        return $value->getUrl();
+    }
+
+    private function handlerDate($value): string
+    {
+        $date = $value->getDate();
+        if ($date !== null) {
+            $timeUnix = $date->getOffset() + $date->getTimestamp();
+        } else {
+            $timeUnix = time();
         }
+        return date('Y-m-d H:i:s', $timeUnix);
     }
 }

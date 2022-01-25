@@ -36,10 +36,10 @@ class ParserNews implements ShouldQueue
     public function handle()
     {
         $objParser = new Parser($this->url);
-        $arrNewsArticle = $objParser->dissection();
+        $objNewsArticle = $objParser->dissection();
 
-        $objReconstruction = new ReconstructionBeforeLoad($arrNewsArticle);
-        $arrUpdateNewsArticle = $objReconstruction->reconstruct();
+        $objReconstruction = new ReconstructionBeforeLoad ($objNewsArticle);
+        $arrUpdateNewsArticle = $objReconstruction->startReconstruction();
 
         LoaderArticles::startLoad($arrUpdateNewsArticle);
     }
