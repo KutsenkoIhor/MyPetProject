@@ -18,18 +18,26 @@
         </div>
 
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email</label>
+            <input type="text" class="form-control" id="floatingInput" value="{{ old('Login') }}" placeholder="name@example.com" name="Login" >
+            <label for="floatingInput">Login</label>
         </div>
 
+        @error('Login')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" value="{{ old('Password') }}" placeholder="Password" name="Password">
             <label for="floatingPassword">Password</label>
         </div>
 
+        @error('Password')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me" name="checkbox"> Remember me
             </label>
         </div>
 

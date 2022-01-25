@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -11,9 +12,12 @@ class AuthController extends Controller
         return view('page/authorization');
     }
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-//        return "fd";
-        return dd(Request::all());
+//        $validated = $request->validate([
+//            'Login'=>'required|min:4|max:50',
+//            'Password'=>'required|min:6|max:50'
+//        ]);
+
     }
 }

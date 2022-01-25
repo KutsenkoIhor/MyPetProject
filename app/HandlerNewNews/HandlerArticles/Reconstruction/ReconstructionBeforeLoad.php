@@ -16,21 +16,24 @@ class ReconstructionBeforeLoad
     public function startReconstruction(): array
     {
         $arrAllNews = [];
-        $logo = $this->handlerLogo();
+//        $logo = $this->handlerLogo();
         foreach ($this->arrNewsArticle->items as $key => $value) {
             $arr = [];
             $arr['title'] = $this->handlerTitle($value);
             $arr['url'] = $this->handlerUrl($value);
-            $arr['logo'] = $logo;
+//            $arr['logo'] = $logo;
+            $arr['logo'] = $this->handlerLogo($value);
             $arr['date'] = $this->handlerDate($value);
             $arrAllNews[$key] = $arr;
         }
         return $arrAllNews;
     }
 
-    private function handlerLogo(): string
+    private function handlerLogo($value): string
     {
-        return $this->arrNewsArticle->getlogo();
+//        return $this->arrNewsArticle->getlogo();
+        print_r($value->getEnclosureUrl());
+        return $value->getEnclosureUrl();
     }
 
     private function handlerTitle($value): string

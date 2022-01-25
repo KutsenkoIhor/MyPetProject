@@ -23,3 +23,5 @@ Route::get('/admin', [AuthController::class, 'pageAuth'])
 
 Route::post('/admin/submit', [AuthController::class, 'login'])
     ->name('authorization.login');
+
+
