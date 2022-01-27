@@ -32,7 +32,6 @@ class ReconstructionBeforeLoad
     private function handlerLogo($value): string
     {
 //        return $this->arrNewsArticle->getlogo();
-        print_r($value->getEnclosureUrl());
         return $value->getEnclosureUrl();
     }
 

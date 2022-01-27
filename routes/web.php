@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,34 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ArticleController::class, 'showArticles'])
     ->name('articles.showArticles');
 
-Route::get('/admin', [AuthController::class, 'pageAuth'])
-    ->name('authorization.pageAuth');
+Route::name('admin.')->group(function () {
+//    Route::view('/admin', 'page/settings')->middleware('auth')->name('admin');
+    Route::get('/admin', [AdminController::class, 'settings'])->middleware('auth')->name('admin');
 
-Route::post('/admin/submit', [AuthController::class, 'login'])
-    ->name('authorization.login');
 
+    Route::get('/login', function () {
+        if (Auth::check()) {
+            return redirect(\route('admin.admin'));
+        } else {
+            return view('page/login');
+        }
+    })->name('login');
+
+    Route::post('/login',[AdminController::class, 'login']);
+
+
+    Route::post('/logout',[AdminController::class, 'logout'])->name('logout');
+
+
+    Route::get('/registration', function () {
+        if (Auth::check()) {
+            return redirect(\route('admin.admin'));
+        } else {
+            return view('page/registration');
+        }
+    })->name('registration');
+
+    Route::post('registration', [AdminController::class, 'registration']);
+
+});
 

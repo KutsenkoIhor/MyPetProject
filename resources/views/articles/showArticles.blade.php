@@ -1,4 +1,4 @@
-@extends('layouts.app3')
+@extends('layouts.articles')
 
 @section('title', 'CUT NEWS')
 
@@ -8,14 +8,7 @@
         <p>{{$value->date}}   <img src="{{$value->logo}}" width="20" height="20">  <a href="{{$value->url}}">{{$value->title}}</a></p>
     @endforeach
 
-{{--    <p>{{$tagsss}}</p>--}}
 @endsection
-
-
-{{--@foreach ($users as $user)--}}
-{{--    <p>This is user {{ $user->id }}</p>--}}
-{{--@endforeach--}}
-
 
 @section('text')
     @foreach($tagsss as $value)
