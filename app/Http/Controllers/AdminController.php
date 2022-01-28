@@ -11,15 +11,13 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function settings () {
-        $dataUrl = DB::table('news_urls')
-            ->orderBy('updated_at', 'desc')
-            ->select('id', 'url', 'created_at', 'updated_at')
-            ->get();
-//        foreach ($dataUrl as $x) {
-//            print_r($x->id);
-//        }
-//        print_r($dataUrl );
-        return view('page/settings', ['data' => $dataUrl]);
+//        $dataUrl = DB::table('news_urls')
+//            ->orderBy('updated_at', 'desc')
+//            ->select('id', 'url', 'created_at', 'updated_at')
+//            ->get();
+//
+//        return view('page/settings', ['data' => $dataUrl]);
+        return view('layouts/test');
     }
 
     public function logout(Request $request)
