@@ -24,28 +24,5 @@ class Parser
             $resource->getEncoding()
         );
         return $parser->execute();
-
-//        $arrNewsArticle = [];
-//        $logo = $feed->getLogo();
-//        foreach ($feed->items as $key => $newsArticle) {
-//            $arr = [];
-//            $arr['title'] = $newsArticle->getTitle();
-//            $arr['url'] = $newsArticle->getUrl();
-//            $arr['logo'] = $logo;
-//
-//            $date = $newsArticle->getDate();
-//            if ($date !== null) {
-//                $arr['date'] = $date->getOffset() + $date->getTimestamp();
-//            } else {
-//                $arr['date'] = null;
-//            }
-//
-//            $arrNewsArticle[$key] = $arr;
-//        }
-//        return $arrNewsArticle;
-        //        foreach ($this->arrNewsArticle as &$value) {
-//            $value['date'] = date('Y-m-d H:i:s', $value['date']);
-//        }
-//        return "f";
     }
 }

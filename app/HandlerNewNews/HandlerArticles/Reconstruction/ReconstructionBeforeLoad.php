@@ -16,23 +16,41 @@ class ReconstructionBeforeLoad
     public function startReconstruction(): array
     {
         $arrAllNews = [];
-//        $logo = $this->handlerLogo();
+        $urlWebSite = $this->handlerWebSite();
+        $logoWebSite = $this->handlerLogo();
+        $nameWebSite = $this->handlerName();
         foreach ($this->arrNewsArticle->items as $key => $value) {
             $arr = [];
             $arr['title'] = $this->handlerTitle($value);
             $arr['url'] = $this->handlerUrl($value);
-//            $arr['logo'] = $logo;
-            $arr['logo'] = $this->handlerLogo($value);
+            $arr['EnclosureUrl'] = $this->handlerEnclosureUrl($value);
+            $arr['logoWebSite'] = $logoWebSite;
             $arr['date'] = $this->handlerDate($value);
+            $arr['nameWebSite'] = $nameWebSite;
+            $arr['urlWebSite'] = $urlWebSite;
             $arrAllNews[$key] = $arr;
         }
         return $arrAllNews;
     }
 
-    private function handlerLogo($value): string
+    private function handlerWebSite(): string
     {
-//        return $this->arrNewsArticle->getlogo();
+        return $this->arrNewsArticle->getSiteUrl();
+    }
+
+    private function handlerName(): string
+    {
+        return $this->arrNewsArticle->getTitle();
+    }
+
+    private function handlerEnclosureUrl($value): string
+    {
         return $value->getEnclosureUrl();
+    }
+
+    private function handlerLogo(): string
+    {
+        return $this->arrNewsArticle->getlogo();
     }
 
     private function handlerTitle($value): string

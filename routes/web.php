@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AdminPanel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +22,12 @@ Route::get('/', [ArticleController::class, 'showArticles'])
 
 Route::name('admin.')->group(function () {
 //    Route::view('/admin', 'page/settings')->middleware('auth')->name('admin');
-    Route::get('/admin', [AdminController::class, 'settings'])->middleware('auth')->name('admin');
+    Route::get('/admin', [AdminPanel::class, 'showAdminPanel'])->middleware('auth')->name('admin');
 
+    Route::post('/admin', [AdminPanel::class, 'addNewsUrl'])->name('handlerPanel');
+    Route::post('/deleteNewsUrl', [AdminPanel::class, 'deleteNewsUrl'])->name('deleteNewsUrl');
+
+    Route::post('/logout',[AdminPanel::class, 'logout'])->name('logout');
 
     Route::get('/login', function () {
         if (Auth::check()) {
@@ -32,11 +37,7 @@ Route::name('admin.')->group(function () {
         }
     })->name('login');
 
-    Route::post('/login',[AdminController::class, 'login']);
-
-
-    Route::post('/logout',[AdminController::class, 'logout'])->name('logout');
-
+    Route::post('/login',[LoginController::class, 'login']);
 
     Route::get('/registration', function () {
         if (Auth::check()) {
@@ -46,7 +47,7 @@ Route::name('admin.')->group(function () {
         }
     })->name('registration');
 
-    Route::post('registration', [AdminController::class, 'registration']);
+    Route::post('registration', [LoginController::class, 'registration']);
 
 });
 

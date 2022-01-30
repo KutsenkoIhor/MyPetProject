@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NewsUrls extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['url', 'logo', 'name'];
+
 }

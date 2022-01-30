@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Админка</title>
-    {{--    <link href="css/app.css" rel="stylesheet">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/authorization.css') }}" rel="stylesheet">
-    {{--    <link href="css/authorization.css" rel="stylesheet">--}}
 </head>
 <body>
 <main class="form-signin">
