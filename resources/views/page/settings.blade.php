@@ -30,5 +30,25 @@
             </div>
         </div>
     @endforeach
+<script>
+    $(document).ready(function() {
+        //set initial state.
 
+        $('.form-check-input').change(function() {
+            let state = this.checked;
+            let sourceId = $(this).val();
+            console.log('CHANGE!' + sourceId);
+            console.log(state);
+            $.ajax({
+                url: "{{route('admin.changeStatusOfSource')}}",         /* Куда пойдет запрос */
+                method: 'post',             /* Метод передачи (post или get) */
+                dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+                data: {_method: 'PATCH', id: sourceId, state: state, "_token": "{{ csrf_token() }}"},      /* Параметры передаваемые в запросе. */
+                success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+                    console.log(data);            /* В переменной data содержится ответ от index.php. */
+                }
+            });
+        });
+    });
+</script>
 @endsection

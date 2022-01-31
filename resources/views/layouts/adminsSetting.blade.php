@@ -6,6 +6,10 @@
     <title>Admin Panel</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
 </head>
 <body class="bg-light">
 
@@ -32,22 +36,10 @@
 
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h3 >List of sites</h3>
+        <h3 class="border-bottom"></h3>
 
-        <form action="{{route('admin.activeNewsUrl')}}" method="post">
-            @csrf
-
-            <div class="d-flex justify-content-between">
-                <h3 >List of sites</h3>
-                <button class="w-10 btn btn-lg btn-primary" type="submit">Save</button>
-            </div>
-            <h3 class="border-bottom"></h3>
-
-{{--            <button class="w-10 btn btn-lg btn-primary" type="submit">Save</button>--}}
-{{--            <h3 class="border-bottom pb-1 mb-0">List of sites</h3>--}}
-
-            @yield('bloc')
-        </form>
-
+        @yield('bloc')
 
         <small class="d-block text-end mt-3">
             <form action="{{route('admin.logout')}}" method="post">

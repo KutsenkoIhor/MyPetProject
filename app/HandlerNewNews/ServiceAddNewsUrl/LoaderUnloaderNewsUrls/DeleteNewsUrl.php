@@ -10,5 +10,4 @@ class DeleteNewsUrl
     {
         NewsUrls::where('url', $NewsUrl)->delete();
     }
-
 }

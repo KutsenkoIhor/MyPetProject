@@ -21,13 +21,10 @@ Route::get('/', [ArticleController::class, 'showArticles'])
     ->name('articles.showArticles');
 
 Route::name('admin.')->group(function () {
-//    Route::view('/admin', 'page/settings')->middleware('auth')->name('admin');
     Route::get('/admin', [AdminPanel::class, 'showAdminPanel'])->middleware('auth')->name('admin');
-
     Route::post('/admin', [AdminPanel::class, 'addNewsUrl'])->name('handlerPanel');
     Route::post('/deleteNewsUrl', [AdminPanel::class, 'deleteNewsUrl'])->name('deleteNewsUrl');
-    Route::post('/activeNewsUrl', [AdminPanel::class, 'activeNewsUrl'])->name('activeNewsUrl');
-
+    Route::patch('/activeNewsUrl', [AdminPanel::class, 'changeStatusOfSource'])->name('changeStatusOfSource');
     Route::post('/logout',[AdminPanel::class, 'logout'])->name('logout');
 
     Route::get('/login', function () {
@@ -37,7 +34,6 @@ Route::name('admin.')->group(function () {
             return view('page/login');
         }
     })->name('login');
-
     Route::post('/login',[LoginController::class, 'login']);
 
     Route::get('/registration', function () {
@@ -47,7 +43,6 @@ Route::name('admin.')->group(function () {
             return view('page/registration');
         }
     })->name('registration');
-
     Route::post('registration', [LoginController::class, 'registration']);
 
 });
