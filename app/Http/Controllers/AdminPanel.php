@@ -7,15 +7,36 @@ use App\HandlerNewNews\Parser\Parser;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\DeleteNewsUrl;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\LoaderNewsUrls;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\UnloaderNewsUrls;
+use App\Models\NewsUrls;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class AdminPanel extends Controller
 {
     public function showAdminPanel () {
         $data = UnloaderNewsUrls::startUnload();
+
+        $url = "http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
+
+        //загрузка картинок
+        $contents = file_get_contents($url);
+
+//        $name = basename($url);
+//        Storage::put("public/" . $name, $contents);
+////        $size = getimagesize("http://www.google.co.in/intl/en_com/images/srpr/logo1w.png");
+//        $size = getimagesize("/home/ihor/PhpstormProjects/NewsAggregator/storage/app/public/" . $name);
+//        print_r($size);
+
         return view('page/settings', ['data' => $data ]);
+    }
+
+    public function activeNewsUrl(Request $request)
+    {
+//        dd($request->input('64'));
+       dd($request);
+//        return redirect(route('admin.admin'));
     }
 
     public function deleteNewsUrl(Request $request)

@@ -26,6 +26,7 @@ Route::name('admin.')->group(function () {
 
     Route::post('/admin', [AdminPanel::class, 'addNewsUrl'])->name('handlerPanel');
     Route::post('/deleteNewsUrl', [AdminPanel::class, 'deleteNewsUrl'])->name('deleteNewsUrl');
+    Route::post('/activeNewsUrl', [AdminPanel::class, 'activeNewsUrl'])->name('activeNewsUrl');
 
     Route::post('/logout',[AdminPanel::class, 'logout'])->name('logout');
 

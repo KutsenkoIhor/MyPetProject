@@ -32,9 +32,22 @@
 
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h4 class="border-bottom pb-5 mb-0">List of sites</h4>
 
-        @yield('bloc')
+        <form action="{{route('admin.activeNewsUrl')}}" method="post">
+            @csrf
+
+            <div class="d-flex justify-content-between">
+                <h3 >List of sites</h3>
+                <button class="w-10 btn btn-lg btn-primary" type="submit">Save</button>
+            </div>
+            <h3 class="border-bottom"></h3>
+
+{{--            <button class="w-10 btn btn-lg btn-primary" type="submit">Save</button>--}}
+{{--            <h3 class="border-bottom pb-1 mb-0">List of sites</h3>--}}
+
+            @yield('bloc')
+        </form>
+
 
         <small class="d-block text-end mt-3">
             <form action="{{route('admin.logout')}}" method="post">
