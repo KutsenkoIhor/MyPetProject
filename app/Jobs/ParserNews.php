@@ -28,6 +28,7 @@ class ParserNews implements ShouldQueue
         $this->url = $url;
     }
 
+
     /**
      * Execute the job.
      *

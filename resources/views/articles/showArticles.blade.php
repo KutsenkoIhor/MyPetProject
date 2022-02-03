@@ -1,38 +1,41 @@
-@extends('layouts.articles')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cutting News</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
 
-@section('title', 'CUT NEWS')
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-@section('content')
-
-    @foreach($tagsss as $value)
-        <p>{{$value->date}}   <img src="{{$value->logo}}" width="20" height="20">  <a href="{{$value->url}}">{{$value->title}}</a></p>
-    @endforeach
-
-@endsection
-
-@section('text')
-    @foreach($tagsss as $value)
-
-        <div class="col">
-            <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="0" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><img src="{{$value->logo}}"><rect width="100%" height="100%" fill="#55595c"/></svg>
-{{--                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>--}}
-{{--                <img src="{{$value->logo}}" width="420" height="225">--}}
-                <div class="card-body">
-                    <p class="card-text"><a href="{{$value->url}}">{{$value->title}}</a></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                        </div>
-                        <small class="text-muted">{{$value->date}}</small>
+                @foreach($tagsss as $value)
+                    <div class="col">
+                        <a href="{{$value->url}}" class="text-decoration-none text-reset">
+                            <div class="card h-100">
+                                <img src="{{$value->logo}}" class="card-img-top" alt="storage/fon.png">
+                                <div class="card-body">
+                                    <h5 class="card-title">CNN.com - RSS Channel - World</h5>
+                                    <p class="card-text">{{$value->title}}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">{{$value->date}} Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
+    </div>
 
+</main>
 
-
-{{--        <p>{{$value->date}}   <img src="{{$value->logo}}" width="20" height="20">  <a href="{{$value->url}}">{{$value->title}}</a></p>--}}
-    @endforeach
-@endsection
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>

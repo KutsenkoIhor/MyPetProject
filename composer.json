@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "nicolus/picofeed": "master",
-        "twbs/bootstrap": "5.0.1"
+        "twbs/bootstrap": "5.0.1",
+        "ext-gd": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

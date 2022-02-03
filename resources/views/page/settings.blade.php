@@ -6,6 +6,7 @@
         <div class="d-flex text-muted pt-3">
             <div class="me-3" >
                 <img src="{{$value->logo}}" width="32" height="32">
+{{--                <img src="image/9b8b2f49a4cbb71e65090809a9427035.jpeg" width="32" height="32">--}}
             </div>
 
 

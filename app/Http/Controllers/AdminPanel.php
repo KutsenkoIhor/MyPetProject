@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionBeforeLoad;
+use App\HandlerNewNews\HandlerImg\HandlerImg;
 use App\HandlerNewNews\Parser\Parser;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\ChangeStatusNewsUrls;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\DeleteNewsUrl;
@@ -18,19 +19,25 @@ class AdminPanel extends Controller
 {
     public function showAdminPanel () {
         $data = UnloaderNewsUrls::startUnload();
+        return view('page/settings', ['data' => $data ]);
 
-        $url = "http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
+//        $url = "https://img.tsn.ua/cached/529/tsn-2e5933e84c8f120777c30b7610ecadcd/thumbs/550xX/a7/a5/db85c353bcbc453975a38dc47692a5a7.jpeg";
+//
+//        //загрузка картинок
+//        $contents = file_get_contents($url);
+//        $path = getcwd() . "/storage/";
+//        $name = basename($url);
+//        Storage::put("public/" . $name, $contents);
+////        $size = getimagesize("http://www.google.co.in/intl/en_com/images/srpr/logo1w.png");
+//        $size = getimagesize($path . $name);
+//        print_r($size);
+//        print_r($path . $name);
+//        $obj = new HandlerImg();
+//        $obj->load("https://img.tsn.ua/cached/204/tsn-2e5933e84c8f120777c30b7610ecadcd/thumbs/550xX/a7/a1/4d277d47f5f387b24d7a54d1dee3a1a7.jpeg");
+//        $obj->crop();
+//        $obj->save($path . 'image12.jpg');
 
-        //загрузка картинок
-        $contents = file_get_contents($url);
 
-        $name = basename($url);
-        Storage::put("public/" . $name, $contents);
-//        $size = getimagesize("http://www.google.co.in/intl/en_com/images/srpr/logo1w.png");
-        $size = getimagesize("/home/ihor/PhpstormProjects/NewsAggregator/storage/app/public/" . $name);
-        print_r($size);
-
-//        return view('page/settings', ['data' => $data ]);
     }
 
     public function changeStatusOfSource(Request $request)
@@ -69,7 +76,7 @@ class AdminPanel extends Controller
         }
 
         $test = new ReconstructionBeforeLoad($feed);
-        $arr = $test->startReconstruction()[1]; // take any key [1]
+        $arr = $test->startReconstruction()[0]; // take only key [0]
         $arr['urlWebSite'] = $request->input('newUrl');
 
         LoaderNewsUrls::startLoad($arr);
