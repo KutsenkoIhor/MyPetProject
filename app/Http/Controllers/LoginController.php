@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use Illuminate\Http\Request;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
     public function login(LoginRequest $request)
     {
         if (Auth::attempt(['login' => $request->input('Login'),
@@ -18,14 +18,14 @@ class LoginController extends Controller
             return redirect(route('admin.admin'));
         } else {
             return redirect(route('admin.login'))->withErrors([
-                'Login' => 'Неверный логин или пароль'
+                'Login' => 'Wrong login or password'
             ]);
         }
     }
 
     public function registration(LoginRequest $request)
     {
-        $admin = DB::table('admins')->insertOrIgnore([
+        $admin = Admin::insertOrIgnore([
             'login' => $request->input('Login'),
             'password' => Hash::make($request->input('Password'))
         ]);
@@ -35,10 +35,9 @@ class LoginController extends Controller
                 'password' => $request->input('Password')]);
             $request->session()->regenerate();
             return redirect(route('admin.admin'));
-
         } else {
             return redirect(route('admin.registration'))->withErrors([
-                'Login' => 'Произошла ошибка при сохранении пользователя'
+                'Login' => 'Username already exists'
             ]);
         }
     }

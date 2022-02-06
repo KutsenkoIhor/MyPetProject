@@ -6,7 +6,6 @@ use App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\LoaderArticles;
 use App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionBeforeLoad;
 use App\HandlerNewNews\Parser\Parser;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,7 +33,7 @@ class ParserNews implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $objParser = new Parser($this->url);
         $objNewsArticle = $objParser->dissection();

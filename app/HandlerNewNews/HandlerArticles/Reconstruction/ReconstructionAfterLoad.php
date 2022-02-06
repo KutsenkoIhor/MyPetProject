@@ -11,14 +11,10 @@ class ReconstructionAfterLoad
         $this->objNewsArticle = $objNewsArticle;
     }
 
-    public function reconstruct()
+    public function reconstruct(): object
     {
-//        foreach ($this->objNewsArticle as $value) {
-////            print_r($value->date);
-//            print_r($value);
-//        }
         return $this->objNewsArticle;
-//        print_r($this->objNewsArticle);
+
     }
 
 }

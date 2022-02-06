@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\UnloaderArticles;
 use App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionAfterLoad;
-use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -13,8 +12,8 @@ class ArticleController extends Controller
         $objArticles = UnloaderArticles::startUpload();
 
         $objReconstruction  = new ReconstructionAfterLoad($objArticles);
-        $articls = $objReconstruction->reconstruct();
+        $articles = $objReconstruction->reconstruct();
 
-        return view('articles/showArticles', ['tagsss' => $articls]);
+        return view('page/showArticles', ['tagsss' => $articles]);
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Article;
 
 class UnloaderArticles
 {
+    /**
+     * @return object
+     */
     public static function startUpload(): object
     {
-        return DB::table('articles')
-            ->orderBy('date', 'desc')
-            ->select('date', 'title', 'url', 'logo')
-            ->limit(270)
-            ->get();
+        return Article::orderBy('date', 'desc')
+            ->select('date', 'title', 'url', 'image_news', 'name_news_channel')
+            ->paginate(12);
     }
 }

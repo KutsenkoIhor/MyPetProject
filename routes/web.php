@@ -29,7 +29,7 @@ Route::name('admin.')->group(function () {
 
     Route::get('/login', function () {
         if (Auth::check()) {
-            return redirect(\route('admin.admin'));
+            return redirect(route('admin.admin'));
         } else {
             return view('page/login');
         }
@@ -38,12 +38,11 @@ Route::name('admin.')->group(function () {
 
     Route::get('/registration', function () {
         if (Auth::check()) {
-            return redirect(\route('admin.admin'));
+            return redirect(route('admin.admin'));
         } else {
             return view('page/registration');
         }
     })->name('registration');
     Route::post('registration', [LoginController::class, 'registration']);
-
 });
 

@@ -12,8 +12,9 @@ class LoaderArticles
             DB::table('articles')->insertOrIgnore([
                 'title' => $value['title'],
                 'url' => $value['url'],
-                'logo' => $value['EnclosureUrl'],
-                'date' => $value['date']
+                'image_news' => $value['EnclosureUrl'],
+                'date' => $value['date'],
+                'name_news_channel' => $value['nameWebSite']
             ]);
         }
     }

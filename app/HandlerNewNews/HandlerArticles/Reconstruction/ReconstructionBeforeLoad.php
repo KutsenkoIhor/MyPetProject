@@ -2,7 +2,6 @@
 
 namespace App\HandlerNewNews\HandlerArticles\Reconstruction;
 
-use App\HandlerNewNews\HandlerImg\HandleTextForImage;
 use App\HandlerNewNews\HandlerImg\ServiceImg;
 use App\Models\Article;
 use PicoFeed\Parser\Feed;
@@ -11,11 +10,17 @@ class ReconstructionBeforeLoad
 {
     private Feed $arrNewsArticle;
 
+    /**
+     * @param Feed $arrNewsArticle
+     */
     public function __construct(Feed $arrNewsArticle)
     {
         $this->arrNewsArticle = $arrNewsArticle;
     }
 
+    /**
+     * @return array
+     */
     public function startReconstruction(): array
     {
         $arrAllNews = [];
@@ -39,7 +44,12 @@ class ReconstructionBeforeLoad
         return $arrAllNews;
     }
 
-    private function uniqueNews($value, $key)//пропускаем первую новость для добавление информации в админ панель
+    /**
+     * @param $value
+     * @param $key
+     * @return bool
+     */
+    private function uniqueNews($value, $key): bool
     {
         if (Article::where('url', $value->getUrl())->first()){
             if ($key === 0) {
@@ -52,16 +62,26 @@ class ReconstructionBeforeLoad
         }
     }
 
+    /**
+     * @return string
+     */
     private function handlerWebSite(): string
     {
         return $this->arrNewsArticle->getSiteUrl();
     }
 
+    /**
+     * @return string
+     */
     private function handlerName(): string
     {
         return $this->arrNewsArticle->getTitle();
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function handlerEnclosureUrl($value): string
     {
         if ($value->getEnclosureUrl()) {
@@ -78,40 +98,37 @@ class ReconstructionBeforeLoad
         return $objImg->getPath();
     }
 
+    /**
+     * @return string
+     */
     private function handlerLogo(): string
     {
         return $this->arrNewsArticle->getlogo();
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function handlerTitle($value): string
     {
         $title = $value->getTitle();
         return htmlspecialchars_decode($title);
     }
 
-    private function handlerTitleTheSameLength($value): string
-    {
-        $title = $this->handlerTitle($value);
-        $maxLongString = 120;
-        $arr = HandleTextForImage::start($title, $maxLongString);
-        $text = $arr[0] . "...";
-
-        if (iconv_strlen($text) <= 122){
-            $delta = 122 - iconv_strlen($text);
-            for ($i = 0; $i <= $delta; $i++) {
-                $text = $text . " ";
-            }
-            return $text;
-        } else {
-            return $text;
-        }
-    }
-
+    /**
+     * @param $value
+     * @return string
+     */
     private function handlerUrl($value): string
     {
         return $value->getUrl();
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function handlerDate($value): string
     {
         $date = $value->getDate();

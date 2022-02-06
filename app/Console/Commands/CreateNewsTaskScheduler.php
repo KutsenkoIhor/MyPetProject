@@ -12,7 +12,7 @@ class CreateNewsTaskScheduler extends Command
      *
      * @var string
      */
-    protected $signature = 'command:newstaskscheduler';
+    protected $signature = 'command:newsTaskScheduler';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class CreateNewsTaskScheduler extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         InitializeQueue::start();
         return 0;

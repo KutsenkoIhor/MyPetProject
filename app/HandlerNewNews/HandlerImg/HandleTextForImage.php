@@ -4,6 +4,11 @@ namespace App\HandlerNewNews\HandlerImg;
 
 class HandleTextForImage
 {
+    /**
+     * @param string $str
+     * @param int $maxLongString
+     * @return array
+     */
     public static function start(string $str, int $maxLongString): array
     {
         $arr = explode(" ", $str);

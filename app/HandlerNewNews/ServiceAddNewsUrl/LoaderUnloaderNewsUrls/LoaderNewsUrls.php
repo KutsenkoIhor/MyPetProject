@@ -3,7 +3,6 @@
 namespace App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls;
 
 use App\Models\NewsUrls;
-use Illuminate\Support\Facades\DB;
 
 class LoaderNewsUrls
 {

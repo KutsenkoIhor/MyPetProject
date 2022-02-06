@@ -12,7 +12,10 @@ class ServiceImg
     private string $pathSaveFileWithoutPermission;
     private string $background;
 
-
+    /**
+     * @param string $text
+     * @param string|null $file
+     */
     public function __construct(string $text, string $file = null)
     {
         $this->background = storage_path('fon.png');
@@ -22,7 +25,10 @@ class ServiceImg
         $this->pathSaveFileWithoutPermission = public_path('image') . "/" . $this->fileNameWithoutPermission;
     }
 
-    public function load()
+    /**
+     * @return void
+     */
+    public function load(): void
     {
         $image_info = getimagesize($this->file);
         $this->image_type = $image_info[2];
@@ -37,7 +43,10 @@ class ServiceImg
         }
     }
 
-    public function save()
+    /**
+     * @return void
+     */
+    public function save(): void
     {
         if ($this->image_type == IMAGETYPE_JPEG) {
             $fullPathFile = $this->pathSaveFileWithoutPermission . ".jpeg";
@@ -56,7 +65,10 @@ class ServiceImg
         }
     }
 
-    public function crop()
+    /**
+     * @return void
+     */
+    public function crop(): void
     {
         $width = $this->getWidth();
         $height = $this->getHeight();
@@ -75,7 +87,10 @@ class ServiceImg
         $this->image = imagecrop($this->image, ['x' => $x1, 'y' => $y1, 'width' => $x2, 'height' => $y2]);
     }
 
-    public function createImg()
+    /**
+     * @return void
+     */
+    public function createImg(): void
     {
         $arr = HandleTextForImage::start($this->text,30);
         $fontPath = storage_path('font.ttf');
@@ -87,16 +102,25 @@ class ServiceImg
         }
     }
 
+    /**
+     * @return int
+     */
     public function getWidth(): int
     {
         return imagesx($this->image);
     }
 
+    /**
+     * @return int
+     */
     public function getHeight(): int
     {
         return imagesy($this->image);
     }
 
+    /**
+     * @return string
+     */
     public function getPath(): string
     {
         if ($this->image_type == IMAGETYPE_JPEG) {
