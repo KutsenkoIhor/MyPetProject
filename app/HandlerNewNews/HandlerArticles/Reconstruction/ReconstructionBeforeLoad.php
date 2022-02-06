@@ -8,7 +8,7 @@ use PicoFeed\Parser\Feed;
 
 class ReconstructionBeforeLoad
 {
-    private Feed $arrNewsArticle;
+    protected Feed $arrNewsArticle;
 
     /**
      * @param Feed $arrNewsArticle
@@ -24,21 +24,17 @@ class ReconstructionBeforeLoad
     public function startReconstruction(): array
     {
         $arrAllNews = [];
-        $urlWebSite = $this->handlerWebSite();
-        $logoWebSite = $this->handlerLogo();
         $nameWebSite = $this->handlerName();
         foreach ($this->arrNewsArticle->items as $key => $value) {
-            if ($this->uniqueNews($value, $key)) {
+            if ($this->uniqueNews($value)) {
                 continue;
             }
             $arr = [];
             $arr['title'] = $this->handlerTitle($value);
             $arr['url'] = $this->handlerUrl($value);
             $arr['EnclosureUrl'] = $this->handlerEnclosureUrl($value);
-            $arr['logoWebSite'] = $logoWebSite;
             $arr['date'] = $this->handlerDate($value);
             $arr['nameWebSite'] = $nameWebSite;
-            $arr['urlWebSite'] = $urlWebSite;
             $arrAllNews[$key] = $arr;
         }
         return $arrAllNews;
@@ -46,17 +42,12 @@ class ReconstructionBeforeLoad
 
     /**
      * @param $value
-     * @param $key
      * @return bool
      */
-    private function uniqueNews($value, $key): bool
+    protected function uniqueNews($value): bool
     {
         if (Article::where('url', $value->getUrl())->first()){
-            if ($key === 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         } else {
             return false;
         }
@@ -65,15 +56,7 @@ class ReconstructionBeforeLoad
     /**
      * @return string
      */
-    private function handlerWebSite(): string
-    {
-        return $this->arrNewsArticle->getSiteUrl();
-    }
-
-    /**
-     * @return string
-     */
-    private function handlerName(): string
+    protected function handlerName(): string
     {
         return $this->arrNewsArticle->getTitle();
     }
@@ -82,7 +65,7 @@ class ReconstructionBeforeLoad
      * @param $value
      * @return string
      */
-    private function handlerEnclosureUrl($value): string
+    protected function handlerEnclosureUrl($value): string
     {
         if ($value->getEnclosureUrl()) {
             $objImg = new ServiceImg($this->handlerTitle($value), $value->getEnclosureUrl());
@@ -101,7 +84,7 @@ class ReconstructionBeforeLoad
     /**
      * @return string
      */
-    private function handlerLogo(): string
+    protected function handlerLogo(): string
     {
         return $this->arrNewsArticle->getlogo();
     }
@@ -110,7 +93,7 @@ class ReconstructionBeforeLoad
      * @param $value
      * @return string
      */
-    private function handlerTitle($value): string
+    protected function handlerTitle($value): string
     {
         $title = $value->getTitle();
         return htmlspecialchars_decode($title);
@@ -120,7 +103,7 @@ class ReconstructionBeforeLoad
      * @param $value
      * @return string
      */
-    private function handlerUrl($value): string
+    protected function handlerUrl($value): string
     {
         return $value->getUrl();
     }
@@ -129,7 +112,7 @@ class ReconstructionBeforeLoad
      * @param $value
      * @return string
      */
-    private function handlerDate($value): string
+    protected function handlerDate($value): string
     {
         $date = $value->getDate();
         if ($date !== null) {

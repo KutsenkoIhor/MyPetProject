@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionBeforeLoad;
 use App\HandlerNewNews\Parser\Parser;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\ChangeStatusNewsUrls;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\DeleteNewsUrl;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\LoaderNewsUrls;
 use App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\UnloaderNewsUrls;
+use App\HandlerNewNews\ServiceAddNewsUrl\Reconstruction\ReconstructionForOneNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Throwable;
@@ -55,9 +55,8 @@ class AdminPanel extends Controller
             ]);
         }
 
-        $objfeed = new ReconstructionBeforeLoad($feed);
-        $arr = $objfeed->startReconstruction()[0];
-        $arr['urlWebSite'] = $request->input('newUrl');
+        $objfeed = new ReconstructionForOneNews($feed);
+        $arr = $objfeed->startReconstructionForOneNews($request->input('newUrl'));
 
         LoaderNewsUrls::startLoad($arr);
         return redirect(route('admin.admin'));

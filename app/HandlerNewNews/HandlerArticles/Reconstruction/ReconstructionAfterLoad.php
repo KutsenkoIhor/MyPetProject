@@ -14,7 +14,5 @@ class ReconstructionAfterLoad
     public function reconstruct(): object
     {
         return $this->objNewsArticle;
-
     }
-
 }
