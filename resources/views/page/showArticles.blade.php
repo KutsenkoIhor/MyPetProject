@@ -15,17 +15,17 @@
     <div id="infinite-scroll"  class="album py-3 bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                @foreach($tagsss as $value)
+                @foreach($arrData as $value)
                     <div class="col">
-                        <a href="{{$value->url}}" class="text-decoration-none text-reset">
+                        <a href="{{$value['url']}}" class="text-decoration-none text-reset">
                             <div class="card h-100">
-                                <img src="{{$value->image_news}}" class="card-img-top" alt="storage/fon.png">
+                                <img src="{{$value['image_news']}}" class="card-img-top" alt="storage/fon.png">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$value->name_news_channel}}</h5>
-                                    <p class="card-text">{{$value->title}}</p>
+                                    <h5 class="card-title">{{$value['name_news_channel']}}</h5>
+                                    <p class="card-text">{{$value['title']}}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted">{{$value->date}}</small>
+                                    <small class="text-muted">{{$value['date']}}</small>
                                 </div>
                             </div>
                         </a>

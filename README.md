@@ -85,7 +85,8 @@ Using class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\LoaderNe
 
 ####3) ArticleController Controller has only one method: showArticles
 
-This method using the class App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\UnloaderArticles, loads all the necessary data about the news from the database, sorted by publication time and pagination usage.
+This method, using the App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\UnloaderArticles class, loads all the necessary news data from the database, sorted by publication time and pagination usage.
+Using the App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionAfterLoad class to process data (get the current publication time)
 Next, we display news information in articles using pagination and infinite scrolling.
 
 ## Frontend

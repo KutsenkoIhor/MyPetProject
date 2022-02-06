@@ -14,6 +14,6 @@ class ArticleController extends Controller
         $objReconstruction  = new ReconstructionAfterLoad($objArticles);
         $articles = $objReconstruction->reconstruct();
 
-        return view('page/showArticles', ['tagsss' => $articles]);
+        return view('page/showArticles', ['arrData' => $articles]);
     }
 }
