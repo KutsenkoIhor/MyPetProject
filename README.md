@@ -29,9 +29,7 @@ For independent processing of new news, a task scheduler is used:
 
 Queue handler - ParserNews.php
 
-#### App\Jobs\ParserNews.php
-
-Processes each task in turn (link for the news feeds):
+App\Jobs\ParserNews.php - Processes each task in turn (link for the news feeds):
 
 1) Using class - App\HandlerNewNews\Parser\Parser.php 
 ([PicoFeed](https://packagist.org/packages/nicolus/picofeed)) get an object containing the data of all news.
@@ -46,7 +44,7 @@ To modify all the data in the news and write them to an array.
 3) Using clas - App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\LoaderArticles.php 
 to download all processed news data into a table articles.
 
-### Processing requests from the web page.
+## Processing requests from the web page.
 
 This part of the backend is responsible for the work of routing, and the processing of all incoming requests and the output of information.
 
