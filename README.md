@@ -21,17 +21,11 @@ The backend part of the site can be divided into 2 parts:
 
 For independent processing of new news, a task scheduler is used:
 
-#### App\Console\Kernel.php
+- App\Console\Kernel.php - It automatically runs every 10 min and calls the command - newsTaskScheduler
 
-It automatically runs every 10 min and calls the command - newsTaskScheduler
+- App\Console\Commands\CreateNewsTaskScheduler - This class initializes the start of the queue by running the class
 
-#### App\Console\Commands\CreateNewsTaskScheduler
-
-This command initializes the start of the queue by running the class
-
-#### App\HandlerNewNews\InitializeQueue\InitializeQueue.php
-
-This class accesses the news_urls table and gets all the links for the news feeds marked as active and puts them in the queue.
+- App\HandlerNewNews\InitializeQueue\InitializeQueue.php - This class accesses the news_urls table and gets all the links for the news feeds marked as active and puts them in the queue.
 
 Queue handler - ParserNews.php
 
@@ -70,25 +64,15 @@ Due to the fact that we specified the database model in config\auth.php we after
 
 ### 2) AdminPanel Controller has 5 methods: showAdminPanel, changeStatusOfSource, deleteNewsUrl, logout, addNewsUrl.
 
-- Method showAdminPanel
+- Method showAdminPanel using class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\UnloaderNewsUrls to get data from a table news_urls and display them in the admin panel.
 
-using class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\UnloaderNewsUrls to get data from a table news_urls and display them in the admin panel.
+- Method changeStatusOfSource. The data received with the JavaScript on admin page when using the switch is processed and with the help class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\ChangeStatusNewsUrls transferred to the table to record the status.
 
-- Method changeStatusOfSource
+- Method deleteNewsUrl. Is responsible for deleting a specific news feed from the database using the class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\DeleteNewsUrl and redirecting to the page admin panel.
 
-The data received with the JavaScript on admin page when using the switch is processed and with the help class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\ChangeStatusNewsUrls transferred to the table to record the status.
+- Method logout. Is responsible for terminating the authentication session and redirecting to the authorization page.
 
-- Method deleteNewsUrl
-
-Is responsible for deleting a specific news feed from the database using the class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\DeleteNewsUrl and redirecting to the page admin panel.
-
-- Method logout
-
-Is responsible for terminating the authentication session and redirecting to the authorization page.
-
-- Method addNewsUrl
-
-Using class App\HandlerNewNews\Parser\Parser we are trying to parse the news from the received package.
+- Method addNewsUrl. Using class App\HandlerNewNews\Parser\Parser we are trying to parse the news from the received package.
 When a parsing error occurs, we display messages - 'URL parsing error'.
 Upon successful parsing, the data is sent to the class App\HandlerNewNews\ServiceAddNewsUrl\Reconstruction\ReconstructionForOneNews extends ReconstructionBeforeLoad for processing.
 Using class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\LoaderNewsUrls we update a table in the database or add a new value and redirecting to the page admin panel.
