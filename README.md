@@ -20,15 +20,23 @@ The backend part of the site can be divided into 2 parts:
 ## Automatically collecting and processing news.
 
 For independent processing of new news, a task scheduler is used:
+
 ###App\Console\Kernel.php
+
 It automatically runs every 10 min and calls the command - newsTaskScheduler
+
 ###App\Console\Commands\CreateNewsTaskScheduler
+
 This command initializes the start of the queue by running the class
+
 ###App\HandlerNewNews\InitializeQueue\InitializeQueue.php
+
 This class accesses the news_urls table and gets all the links for the news feeds marked as active and puts them in the queue.
 
 Queue handler - ParserNews.php
+
 ###App\Jobs\ParserNews.php
+
 Processes each task in turn (link for the news feeds):
 
 1) Using class App\HandlerNewNews\Parser\Parser.php([PicoFeed](https://packagist.org/packages/nicolus/picofeed)) get an object containing the data of all news.
@@ -42,11 +50,15 @@ Processes each task in turn (link for the news feeds):
 
 
 ### Processing requests from the web page.
+
 This part of the backend is responsible for the work of routing, and the processing of all incoming requests and the output of information.
 
-###1) Login Controller has 2 methods and own error validator: login, registration, LoginRequest.
+### 1) Login Controller has 2 methods and own error validator: login, registration, LoginRequest.
+- 
 - LoginRequest error validator:
+- 
 ###App\Http\Requests\LoginRequest.php
+
 This validator makes a simple check for the length of the login and password, at least 4 characters for the login and 6 characters for the password, if the check fails, an error message pops up, above a certain type of form, where the error occurred, the information in the form that was entered wrong after validation remains in the form for easy editing.
 
 - Method registration class
