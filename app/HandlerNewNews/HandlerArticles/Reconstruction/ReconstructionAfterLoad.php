@@ -6,7 +6,7 @@ class ReconstructionAfterLoad
 {
     private object $objNewsArticle;
 
-    public function __construct(object $objNewsArticle)
+    public function setArticle(object $objNewsArticle)
     {
         $this->objNewsArticle = $objNewsArticle;
     }
