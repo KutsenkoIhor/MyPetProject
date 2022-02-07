@@ -21,21 +21,21 @@ The backend part of the site can be divided into 2 parts:
 
 For independent processing of new news, a task scheduler is used:
 
-###App\Console\Kernel.php
+#### App\Console\Kernel.php
 
 It automatically runs every 10 min and calls the command - newsTaskScheduler
 
-###App\Console\Commands\CreateNewsTaskScheduler
+#### App\Console\Commands\CreateNewsTaskScheduler
 
 This command initializes the start of the queue by running the class
 
-###App\HandlerNewNews\InitializeQueue\InitializeQueue.php
+#### App\HandlerNewNews\InitializeQueue\InitializeQueue.php
 
 This class accesses the news_urls table and gets all the links for the news feeds marked as active and puts them in the queue.
 
 Queue handler - ParserNews.php
 
-###App\Jobs\ParserNews.php
+#### App\Jobs\ParserNews.php
 
 Processes each task in turn (link for the news feeds):
 
@@ -54,23 +54,23 @@ Processes each task in turn (link for the news feeds):
 This part of the backend is responsible for the work of routing, and the processing of all incoming requests and the output of information.
 
 ### 1) Login Controller has 2 methods and own error validator: login, registration, LoginRequest.
-- 
+
 - LoginRequest error validator:
-- 
-###App\Http\Requests\LoginRequest.php
+
+#### App\Http\Requests\LoginRequest.php
 
 This validator makes a simple check for the length of the login and password, at least 4 characters for the login and 6 characters for the password, if the check fails, an error message pops up, above a certain type of form, where the error occurred, the information in the form that was entered wrong after validation remains in the form for easy editing.
 
 - Method registration class
-###App\Http\Controllers\LoginController.php
+#### App\Http\Controllers\LoginController.php
 After validation, this method will add a user to the database (his logs and a hashed password), in case of a successful operation, the user is authenticated while saving his login and password for 2 hours and redirecting to the admin panel, in case of an error (such a user already exists), it displays a window with an error message.
 
 - Method login class
-###App\Http\Controllers\LoginController.php
+#### App\Http\Controllers\LoginController.php
 Due to the fact that we specified the database model in config\auth.php we after validation check for authentication use Auth::attempt, при успешной проверки ми проводим аунтификацию на 2 часа и переходим в админ панель, при возникновении ошибкы мы получаем собщения - 'Wrong login or password'
 
-###2) AdminPanel Controller has 5 methods: showAdminPanel, changeStatusOfSource, deleteNewsUrl, logout, addNewsUrl.
-App\Http\Controllers\AdminPanelController.php
+### 2) AdminPanel Controller has 5 methods: showAdminPanel, changeStatusOfSource, deleteNewsUrl, logout, addNewsUrl.
+#### App\Http\Controllers\AdminPanelController.php
 
 - Method showAdminPanel
 
@@ -95,7 +95,7 @@ When a parsing error occurs, we display messages - 'URL parsing error'.
 Upon successful parsing, the data is sent to the class App\HandlerNewNews\ServiceAddNewsUrl\Reconstruction\ReconstructionForOneNews extends ReconstructionBeforeLoad for processing.
 Using class App\HandlerNewNews\ServiceAddNewsUrl\LoaderUnloaderNewsUrls\LoaderNewsUrls we update a table in the database or add a new value and redirecting to the page admin panel.
 
-###3) ArticleController Controller has only one method: showArticles
+### 3) ArticleController Controller has only one method: showArticles
 
 This method, using the App\HandlerNewNews\HandlerArticles\LoaderUnloaderArticles\UnloaderArticles class, loads all the necessary news data from the database, sorted by publication time and pagination usage.
 Using the App\HandlerNewNews\HandlerArticles\Reconstruction\ReconstructionAfterLoad class to process data (get the current publication time)
